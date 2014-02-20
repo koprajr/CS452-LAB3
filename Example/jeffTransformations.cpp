@@ -1,4 +1,4 @@
-#include "initShaders.h"
+#include "jeffInitShaders.h"
 #include <cstdlib>
 using namespace std;
 
@@ -21,6 +21,43 @@ GLfloat vertexarray[]={	size,size,-size,
                        	-size,-size,size,
                        	-size,size,size
                       };
+                      
+GLfloat pyramidArray[]={
+//Front
+0.0f	,	1.0f	, 	0.0f,
+-1.0f	, 	-1.0f	, 	1.0f,
+1.0f	, 	-1.0f	, 	1.0f,
+//Right
+0.0f	, 	1.0f	, 	0.0f,
+1.0f	, 	-1.0f	, 	1.0f,
+1.0f	, 	-1.0f	, 	-1.0f,
+//Back
+0.0f	, 	1.0f	, 	0.0f,
+1.0f	, 	-1.0f	, 	-1.0f,
+-1.0f	, 	-1.0f	, 	-1.0f,
+//Left
+0.0f	, 	1.0f	, 	0.0f,
+-1.0f	,	-1.0f	,	-1.0f,
+-1.0f	,	-1.0f	, 	1.0f,
+                       }; 
+
+GLfloat pyramidColorArray[]={
+1.0f	,	0.0f	, 	0.0f	,	1.0f,
+0.0f	, 	1.0f	, 	0.0f	,	1.0f,
+0.0f	, 	0.0f	, 	1.0f	,	1.0f,
+
+1.0f	,	0.0f	, 	0.0f	,	1.0f,
+0.0f	, 	1.0f	, 	0.0f	,	1.0f,
+0.0f	, 	0.0f	, 	1.0f	,	1.0f,
+
+1.0f	,	0.0f	, 	0.0f	,	1.0f,
+0.0f	, 	1.0f	, 	0.0f	,	1.0f,
+0.0f	, 	0.0f	, 	1.0f	,	1.0f,
+
+1.0f	,	0.0f	, 	0.0f	,	1.0f,
+0.0f	, 	1.0f	, 	0.0f	,	1.0f,
+0.0f	, 	0.0f	, 	1.0f	,	1.0f,
+                            };                           
 
 GLfloat colorarray[]={	1.0f,1.0f,1.0f,1.0f,
 	              	0.5f,1.0f,1.0f,1.0f,
@@ -32,7 +69,7 @@ GLfloat colorarray[]={	1.0f,1.0f,1.0f,1.0f,
                       	1.0f,1.0f,0.5f,1.0f
 	               };
 											
- GLubyte elems[]=	{	0,1,2,3,7,4,5,6,
+GLubyte elems[]=	{	0,1,2,3,7,4,5,6,
     	          		7,3,0,4,5,6,2,1,
     		  		0,1,5,4,7,3,2,6
                  	};
@@ -46,11 +83,11 @@ void init(){
 	
 	glGenBuffers(2, vboID);
 	glBindBuffer(GL_ARRAY_BUFFER,vboID[0]);
-	glBufferData(GL_ARRAY_BUFFER,sizeof(vertexarray),vertexarray,GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER,sizeof(pyramidArray),pyramidArray,GL_STATIC_DRAW);
 	glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,(void*)0);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, vboID[1]);
-  	glBufferData(GL_ARRAY_BUFFER,sizeof(colorarray),colorarray,GL_STATIC_DRAW);
+  	glBufferData(GL_ARRAY_BUFFER,sizeof(pyramidColorArray),pyramidColorArray,GL_STATIC_DRAW);
   	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
   
   	glGenBuffers(1,&eboID);
@@ -148,7 +185,6 @@ int main(int argc, char **argv){
 		fprintf(stderr,"Unable to create window: %s\n",SDL_GetError());
 	}
 	
-
 	//creates opengl context associated with the window
 	SDL_GLContext glcontext=SDL_GL_CreateContext(window);
 	
