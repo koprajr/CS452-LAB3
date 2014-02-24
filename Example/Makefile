@@ -1,5 +1,5 @@
 run: jeffTransformations.cpp
-	g++ jeffTransformations.cpp -lglut -lGLU -lGL -lGLEW -g
+	g++ jeffTransformations.cpp -lGL -lGLU -lSDL2 -lGLEW
 	./a.out
 
 clean:

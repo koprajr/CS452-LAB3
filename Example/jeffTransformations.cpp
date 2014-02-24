@@ -12,67 +12,58 @@ glm::vec3 cubeTran;
 
 GLfloat size=10;
 
-GLfloat vertexarray[]={	size,size,-size,
-		       	size,-size,-size,
-                       	-size,-size,-size,
-                       	-size,size,-size,
-                       	size,size,size,
-                       	size,-size,size,
-                       	-size,-size,size,
-                       	-size,size,size
-                      };
-                      
 GLfloat pyramidArray[]={
-//Front
-0.0f	,	1.0f	, 	0.0f,
--1.0f	, 	-1.0f	, 	1.0f,
-1.0f	, 	-1.0f	, 	1.0f,
-//Right
-0.0f	, 	1.0f	, 	0.0f,
-1.0f	, 	-1.0f	, 	1.0f,
-1.0f	, 	-1.0f	, 	-1.0f,
-//Back
-0.0f	, 	1.0f	, 	0.0f,
-1.0f	, 	-1.0f	, 	-1.0f,
--1.0f	, 	-1.0f	, 	-1.0f,
-//Left
-0.0f	, 	1.0f	, 	0.0f,
--1.0f	,	-1.0f	,	-1.0f,
--1.0f	,	-1.0f	, 	1.0f,
-                       }; 
+				//bottom
+				-size,-size,size,
+				size,-size,size,
+				size,-size,-size,
+				-size,-size,size,
+				size,-size,-size,
+				-size,-size,-size,
+
+				0,size,0,
+		       	-size,-size,size,
+                       	size,-size,size,
+                       	
+                       	0,size,0,
+                       	size,-size,size,
+                       	size,-size,-size,
+                       	
+                       	0,size,0,
+                       	size,-size,-size,
+                       	-size,-size,-size,
+                       	
+                       	0,size,0,
+                       	-size,-size,-size,
+                       	-size,-size,size
+                      };          
 
 GLfloat pyramidColorArray[]={
-1.0f	,	0.0f	, 	0.0f	,	1.0f,
-0.0f	, 	1.0f	, 	0.0f	,	1.0f,
-0.0f	, 	0.0f	, 	1.0f	,	1.0f,
+1.0f	,	1.0f	, 	1.0f	,	1.0f,
+1.0f	,	1.0f	, 	1.0f	,	1.0f,
+1.0f	,	1.0f	, 	1.0f	,	1.0f,
+1.0f	,	1.0f	, 	1.0f	,	1.0f,
+1.0f	,	1.0f	, 	1.0f	,	1.0f,
+1.0f	,	1.0f	, 	1.0f	,	1.0f,
+
 
 1.0f	,	0.0f	, 	0.0f	,	1.0f,
 0.0f	, 	1.0f	, 	0.0f	,	1.0f,
 0.0f	, 	0.0f	, 	1.0f	,	1.0f,
 
 1.0f	,	0.0f	, 	0.0f	,	1.0f,
-0.0f	, 	1.0f	, 	0.0f	,	1.0f,
 0.0f	, 	0.0f	, 	1.0f	,	1.0f,
+0.0f	, 	1.0f	, 	0.0f	,	1.0f,
 
 1.0f	,	0.0f	, 	0.0f	,	1.0f,
 0.0f	, 	1.0f	, 	0.0f	,	1.0f,
 0.0f	, 	0.0f	, 	1.0f	,	1.0f,
+
+1.0f	,	0.0f	, 	0.0f	,	1.0f,
+0.0f	, 	0.0f	, 	1.0f	,	1.0f,
+0.0f	, 	1.0f	, 	0.0f	,	1.0f,
+
                             };                           
-
-GLfloat colorarray[]={	1.0f,1.0f,1.0f,1.0f,
-	              	0.5f,1.0f,1.0f,1.0f,
-		      	1.0f,0.5f,1.0f,1.0f,
-		      	1.0f,1.0f,0.5f,1.0f,
-		      	1.0f,1.0f,1.0f,1.0f,
-		      	0.5f,1.0f,1.0f,1.0f,
-		      	1.0f,0.5f,1.0f,1.0f,
-                      	1.0f,1.0f,0.5f,1.0f
-	               };
-											
-GLubyte elems[]=	{	0,1,2,3,7,4,5,6,
-    	          		7,3,0,4,5,6,2,1,
-    		  		0,1,5,4,7,3,2,6
-                 	};
 
 void init(){
 	glEnable(GL_DEPTH_TEST);
@@ -92,7 +83,7 @@ void init(){
   
   	glGenBuffers(1,&eboID);
   	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,eboID);
-  	glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(elems),elems,GL_STATIC_DRAW);
+  	//glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(elems),elems,GL_STATIC_DRAW);
 
 	ShaderInfo shaders[]={
   		{ GL_VERTEX_SHADER , "vertexshader.glsl"},
@@ -121,7 +112,7 @@ void display(SDL_Window* screen){
  	GLint tempLoc = glGetUniformLocation(program,"modelMatrix");//Matrix that handle the transformations
 	glUniformMatrix4fv(tempLoc,1,GL_FALSE,&trans[0][0]);
 	
-	glDrawElements(GL_POLYGON,24,GL_UNSIGNED_BYTE,NULL);
+	glDrawArrays (GL_TRIANGLES, 0, 45);
 	glFlush();
 	SDL_GL_SwapWindow(screen);
 }
